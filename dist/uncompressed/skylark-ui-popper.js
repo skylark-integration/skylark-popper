@@ -2637,7 +2637,7 @@ define('skylark-ui-popper/Popper',[
   Popper.Defaults = Defaults;
 
 
-  skylark.ui = skyalark.ui || {};
+  skylark.ui = skylark.ui || {};
 
   return skylark.ui.Popper = Popper;
 
