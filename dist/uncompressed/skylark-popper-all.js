@@ -1,8 +1,8 @@
 /**
- * skylark-ui-popper - The skylark popup&tooltip ui plugin.
+ * skylark-popper - The skylark popup&tooltip ui plugin.
  * @author Hudaokeji, Inc.
  * @version v0.9.0
- * @link https://github.com/skylarkui/skylark-ui-popper/
+ * @link https://github.com/skylark-integration/skylark-popper/
  * @license MIT
  */
 (function(factory,globals) {
@@ -86,7 +86,36 @@
 
 })(function(define,require) {
 
-define('skylark-ui-popper/Popper',[
+define('skylark-langx/_attach',[],function(){
+    return  function attach(obj1,path,obj2) {
+        if (typeof path == "string") {
+            path = path.split(".");//[path]
+        };
+        var length = path.length,
+            ns=obj1,
+            i=0,
+            name = path[i++];
+
+        while (i < length) {
+            ns = ns[name] = ns[name] || {};
+            name = path[i++];
+        }
+
+        return ns[name] = obj2;
+    }
+});
+define('skylark-langx/skylark',[
+    "./_attach"
+], function(_attach) {
+    var skylark = {
+    	attach : function(path,obj) {
+    		return _attach(skylark,path,obj);
+    	}
+    };
+    return skylark;
+});
+
+define('skylark-popper/Popper',[
   "skylark-langx/skylark"
 ], function(skylark) {
   'use strict';
@@ -2644,13 +2673,12 @@ define('skylark-ui-popper/Popper',[
 });
 
 
-define('skylark-ui-popper/main',[
+define('skylark-popper/main',[
 	"./Popper"
 ],function(Popper){
 	return Popper;
 });
-define('skylark-ui-popper', ['skylark-ui-popper/main'], function (main) { return main; });
+define('skylark-popper', ['skylark-popper/main'], function (main) { return main; });
 
 
 },this);
-//# sourceMappingURL=sourcemaps/skylark-ui-popper.js.map
